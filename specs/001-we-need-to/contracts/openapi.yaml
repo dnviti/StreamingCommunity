@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: StreamingCommunity API
+  version: 1.0.0
+paths:
+  /downloads:
+    get:
+      summary: Get all downloads
+      responses:
+        '200':
+          description: A list of downloads
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Video'
+    post:
+      summary: Start a new download
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+      responses:
+        '202':
+          description: Download accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Video'
+  /downloads/{id}:
+    get:
+      summary: Get the status of a download
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Download status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Video'
+  /websites:
+    get:
+      summary: Get all supported websites
+      responses:
+        '200':
+          description: A list of supported websites
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Website'
+  /search:
+    get:
+      summary: Search for content across all websites
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Video'
+components:
+  schemas:
+    Video:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        source_url:
+          type: string
+        status:
+          type: string
+          enum: [pending, downloading, completed, failed]
+        website_id:
+          type: string
+          format: uuid
+        progress:
+          type: number
+          format: float
+        drm_protected:
+          type: boolean
+        license_url:
+          type: string
+        pssh:
+          type: string
+        downloader_type:
+          type: string
+          enum: [hls, dash, mp4, torrent]
+        season_number:
+          type: integer
+        episode_number:
+          type: integer
+    Website:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        url:
+          type: string
+        player_type:
+          type: string
+        search_path:
+          type: string
+        film_path:
+          type: string
+        series_path:
+          type: string
