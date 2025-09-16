@@ -1,4 +1,4 @@
-# Feature Specification: Refactor StreamingCommunity to a Headless CLI
+# Feature Specification: Refactor StreamingCommunity to a Web Application
 
 **Feature Branch**: `001-we-need-to`  
 **Created**: 2025-09-16  
@@ -35,16 +35,16 @@ When creating this spec from a user prompt:
 ## User Scenarios & Testing *(mandatory)*
 
 ### Primary User Story
-As a user, I want to use a command-line interface to download videos (movies, TV shows, animes) from various supported websites, so that I can automate downloads and use the application without a graphical user interface.
+As a user, I want to use a web interface to download videos (movies, TV shows, animes) from various supported websites, so that I can easily manage downloads and use the application through a graphical user interface.
 
 ### Acceptance Scenarios
-1.  **Given** a supported website URL for a movie, **When** I run the CLI with the URL, **Then** the movie is downloaded to my local machine.
-2.  **Given** a supported website URL for a TV show, **When** I run the CLI with the URL, **Then** all episodes of the TV show are downloaded.
-3.  **Given** a supported website URL for an anime series, **When** I run the CLI with the URL, **Then** all episodes of the anime are downloaded.
-4.  **Given** a Crunchyroll URL for an anime series, **When** I run the CLI with the URL, **Then** all episodes of the anime are downloaded, handling DRM correctly.
-5.  **Given** a search query, **When** I use the global search, **Then** I get a list of results from all supported websites.
-6.  **Given** an invalid URL, **When** I run the CLI, **Then** an error message is displayed.
-7.  **Given** an unsupported website URL, **When** I run the CLI, **Then** an error message is displayed.
+1.  **Given** a movie title, **When** I search for the title through the web interface, **Then** the movie is downloaded to my local machine.
+2.  **Given** a TV show title, **When** I search for the title through the web interface, **Then** all episodes of the TV show are downloaded.
+3.  **Given** an anime series title, **When** I search for the title through the web interface, **Then** all episodes of the anime are downloaded.
+4.  **Given** a Crunchyroll anime series title, **When** I search for the title through the web interface, **Then** all episodes of the anime are downloaded, handling DRM correctly.
+5.  **Given** a search query, **When** I use the global search through the web interface, **Then** I get a list of results from all supported websites.
+6.  **Given** an invalid title, **When** I search for the title through the web interface, **Then** an error message is displayed.
+7.  **Given** an unsupported website title, **When** I search for the title through the web interface, **Then** an error message is displayed.
 
 ### Edge Cases
 - What happens when a download is interrupted?
@@ -54,18 +54,17 @@ As a user, I want to use a command-line interface to download videos (movies, TV
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
-- **FR-001**: The application MUST provide a command-line interface (CLI).
-- **FR-002**: The CLI MUST be completely headless, with no GUI components.
-- **FR-003**: The application MUST support downloading videos from all supported websites.
-- **FR-004**: The application MUST be able to download movies, TV shows, and anime.
-- **FR-005**: The application MUST provide clear feedback to the user about download progress, success, and failure.
-- **FR-006**: The application's existing functionalities for video downloading MUST be maintained.
-- **FR-007**: The application MUST handle errors gracefully and provide informative messages.
-- **FR-008**: The application's codebase MUST be refactored to improve quality and maintainability.
-- **FR-009**: The application MUST support HLS, DASH, MP4, and Torrent download protocols.
-- **FR-010**: The application MUST support Widevine DRM for protected content.
-- **FR-011**: The application MUST support the following video players: Vixcloud, Supervideo, HDPlayer, Mixdrop, Sweetpixel.
-- **FR-012**: The application MUST provide a global search functionality across all supported sites.
+- **FR-001**: The application MUST allow users to initiate downloads by providing a movie, TV show, or anime title, using fuzzy search across supported websites.
+- **FR-002**: The application MUST support downloading videos from all supported websites.
+- **FR-003**: The application MUST be able to download movies, TV shows, and anime.
+- **FR-004**: The application MUST provide clear feedback to the user about download progress, success, and failure.
+- **FR-005**: The application's existing functionalities for video downloading MUST be maintained.
+- **FR-006**: The application MUST handle errors gracefully and provide informative messages.
+- **FR-007**: The application's codebase MUST be refactored to improve quality and maintainability.
+- **FR-008**: The application MUST support HLS, DASH, MP4, and Torrent download protocols.
+- **FR-009**: The application MUST support Widevine DRM for protected content.
+- **FR-010**: The application MUST support the following video players: Vixcloud, Supervideo, HDPlayer, Mixdrop, Sweetpixel.
+- **FR-011**: The application MUST provide a global search functionality across all supported sites.
 
 ### Supported Websites
 - Altadefinizione
