@@ -32,30 +32,38 @@ func (d *HLSDownloader) Download() error {
 	}
 
 	// Get the playlist
+
 	playlist, listType, err := d.getPlaylist()
 	if err != nil {
 		return err
 	}
 
+	var segments []*m3u8.MediaSegment
+
 	// If it's a master playlist, choose a variant
 	if listType == m3u8.MASTER {
+		masterPl := playlist.(*m3u8.MasterPlaylist)
 		// For simplicity, we'll just choose the first variant
-		if len(playlist.Variants) > 0 {
-			variant := playlist.Variants[0]
+		if len(masterPl.Variants) > 0 {
+			variant := masterPl.Variants[0]
 			d.URL, err = d.resolveURL(variant.URI)
 			if err != nil {
 				return err
 			}
-			playlist, _, err = d.getPlaylist()
+			mediaPl, _, err := d.getPlaylist()
 			if err != nil {
 				return err
 			}
+			segments = mediaPl.(*m3u8.MediaPlaylist).Segments
 		}
+	} else if listType == m3u8.MEDIA {
+		mediaPl := playlist.(*m3u8.MediaPlaylist)
+		segments = mediaPl.Segments
 	}
 
 	// Download segments
 	var segmentURIs []string
-	for _, segment := range playlist.Segments {
+	for _, segment := range segments {
 		if segment != nil {
 			segmentURL, err := d.resolveURL(segment.URI)
 			if err != nil {
@@ -84,7 +92,7 @@ func (d *HLSDownloader) Download() error {
 	return d.concatenateSegments(tempDir)
 }
 
-func (d *HLSDownloader) getPlaylist() (*m3u8.Playlist, m3u8.ListType, error) {
+func (d *HLSDownloader) getPlaylist() (m3u8.Playlist, m3u8.ListType, error) {
 	resp, err := http.Get(d.URL)
 	if err != nil {
 		return nil, 0, err

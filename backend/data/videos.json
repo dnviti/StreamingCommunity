@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "test-video-1",
+    "title": "Test Video",
+    "description": "A video for testing",
+    "url": "http://example.com/test.mp4",
+    "website_id": "test-site"
+  }
+]
