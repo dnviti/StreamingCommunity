@@ -1,0 +1,3 @@
+Contract test for /websites endpoint:
+- Assert response schema for 200 (array of Website).
+- Assert 500 for internal server errors.

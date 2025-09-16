@@ -1,0 +1,5 @@
+Contract test for /search endpoint:
+- Assert request schema for query and type parameters.
+- Assert response schema for 200 (array of VideoSearchResult).
+- Assert 400 for invalid parameters.
+- Assert 500 for internal server errors.

@@ -1,0 +1,5 @@
+Contract test for /download endpoint:
+- Assert request schema for videoId.
+- Assert response schema for 200 (DownloadStatus).
+- Assert 400 for invalid video ID.
+- Assert 500 for internal server errors.

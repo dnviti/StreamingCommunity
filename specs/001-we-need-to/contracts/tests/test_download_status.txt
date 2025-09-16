@@ -1,0 +1,5 @@
+Contract test for /download/{downloadId}/status endpoint:
+- Assert request schema for downloadId path parameter.
+- Assert response schema for 200 (DownloadStatus).
+- Assert 404 for download not found.
+- Assert 500 for internal server errors.
